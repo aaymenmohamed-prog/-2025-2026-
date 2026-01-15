@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام متابعة المؤشرات التربوية - ولاية سليانة</title>
+
+    <!-- Bootstrap RTL CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2874a6;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark-text);
+        }
+
+        .main-header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .login-container {
+            max-width: 500px;
+            margin: 5rem auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .login-body {
+            padding: 2.5rem;
+        }
+
+        .section-title {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .badge {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: white !important;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .grade-card {
+            background: var(--light-bg);
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .grade-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .grade-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .gender-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .gender-block {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .total-block {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            order: -1;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .school-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table thead th {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-complete {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-missing {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress {
+            height: 25px;
+            border-radius: 15px;
+            background: #e9ecef;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--success-color), var(--accent-color));
+            font-weight: 500;
+        }
+
+        .admin-dashboard {
+            display: none;
+        }
+
+        .school-dashboard {
+            display: none;
+        }
+
+        .login-section {
+            display: block;
+        }
+
+        .floating-save {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .floating-save button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            min-width: 300px;
+        }
+
+        .custom-alert {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .stats-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .excel-preview {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .excel-preview table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .excel-preview th,
+        .excel-preview td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .excel-preview th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        .excel-preview .grade-header {
+            background: var(--secondary-color);
+        }
+
+        .trimester-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .trimester-tab {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .trimester-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .trimester-tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        .trimester-content {
+            display: none;
+        }
+
+        .trimester-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .gender-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .school-info {
+                text-align: center;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
+
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+
+    <!-- Alert Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mb-0">
+                        <i class="fas fa-graduation-cap ms-2"></i>
+                        نظام متابعة المؤشرات التربوية
+                    </h1>
+                </div>
+                <div class="col-md-6 text-md-start">
+                    <h4 class="mb-0">ولاية سليانة - السنة الدراسية 2025-2026</h4>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <div class="login-section" id="loginSection">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-header">
+                    <h3><i class="fas fa-lock ms-2"></i>تسجيل الدخول</h3>
+                    <p>الرجاء إدخال رمز المدرسة وكلمة المرور</p>
+                </div>
+                <div class="login-body">
+                    <form id="loginForm">
+                        <div class="form-group mb-4">
+                            <label for="schoolCode" class="form-label">
+                                <i class="fas fa-school ms-1"></i>رمز المدرسة
+                            </label>
+                            <select class="form-select" id="schoolCode" required="">
+                                <option value="">اختر مدرستك</option>
+                                <option value="421001">421001 - البريد</option><option value="421003">421003 - م.إ.  البلهوان</option><option value="421004">421004 - م.إ.  حي الصلاح</option><option value="421012">421012 - م.إ.   جامة</option><option value="421014">421014 - م.إ.  عين الديسة</option><option value="421017">421017 - م.إ.  مديونة</option><option value="421018">421018 - م.إ.  الصاحبين</option><option value="421024">421024 - م.إ. بن زكري يهبـو</option><option value="421025">421025 - م.إ.  دشرة الخلصة</option><option value="421030">421030 - م.إ.  الجوى</option><option value="421031">421031 - م.إ.  عرقوب الخلصة</option><option value="421036">421036 - م.إ.  الخزامي</option><option value="421037">421037 - م.إ.  حي النور-</option><option value="421038">421038 - م.إ.  زواغة</option><option value="421040">421040 - م.إ.الشهداء -</option><option value="421041">421041 - م.إ.  بن زكري</option><option value="421043">421043 - م.إ.  الطيب المهيري</option><option value="421044">421044 - م.إ.  الطويبية</option><option value="421045">421045 - م.إ.  حي النزهة</option><option value="421301">421301 - م.إ.  رأس الماء</option><option value="421302">421302 - م.إ.  سيدي حماده</option><option value="421303">421303 - م.إ.  الغماليــة</option><option value="421304">421304 - م.إ.  القابل</option><option value="421305">421305 - م.إ.  قبر الغول</option><option value="421306">421306 - م.إ.  القنارة</option><option value="421307">421307 - م.إ.  القنطرة</option><option value="421308">421308 - م.إ. مرج مقدم</option><option value="421310">421310 - م.إ.  العذابة</option><option value="421311">421311 - م.إ.  عين القصبات</option><option value="421312">421312 - م.إ.  عرقوب الدبغة</option><option value="421314">421314 - م.إ.  غياضة</option><option value="421315">421315 - م.إ.  حانوت مرزوق</option><option value="421316">421316 - م.إ.  عين أم الحبال</option><option value="421317">421317 - م.إ.  الزريبة</option><option value="421318">421318 - م.إ.  النمايرية</option><option value="421319">421319 - م.إ.  قصر حديد</option><option value="421320">421320 - م.إ.  صنوبرين</option><option value="421321">421321 - م.إ.  سيدي عامر</option><option value="421322">421322 - م.إ.  المرقب</option><option value="421324">421324 - م.إ.  الجمهورية</option><option value="421325">421325 - م.إ.  الحرية</option><option value="421326">421326 - م.إ.حي الأنس</option><option value="421501">421501 - م.إ.  2 مارس</option><option value="421502">421502 - م.إ.  سيدي سعيد</option><option value="421503">421503 - م.إ.  عين بوسعدية</option><option value="421504">421504 - م.إ.  عين زكار</option><option value="421505">421505 - م.إ.  سيدي زيد</option><option value="421506">421506 - م.إ.  صدقة</option><option value="421507">421507 - م.إ.  الدريجة</option><option value="421508">421508 - م.إ.  الكنازيز</option><option value="421510">421510 - م.إ.  مرج عوام</option><option value="421511">421511 - م.إ.  دمان الخرّوب</option><option value="421513">421513 - م.إ.  حي الزهور</option><option value="421514">421514 - م.إ.  أولاد بن عمر</option><option value="421516">421516 - م.إ.  البياض</option><option value="421517">421517 - م.إ.  عين فرنة</option><option value="422001">422001 - م.إ.  الجمهورية</option><option value="422002">422002 - م.إ.  نهج نابل</option><option value="422005">422005 - م.إ.  هنشير فطيـس</option><option value="422006">422006 - م.إ.  محطة الجليدة</option><option value="422007">422007 - م.إ.  قصر بوخريص</option><option value="422008">422008 - م.إ.  طرف الشناء</option><option value="422012">422012 - م.إ.  عين قسيل</option><option value="422014">422014 - م.إ.  أولاد عرفة</option><option value="422015">422015 - م.إ.  حي الزياتين</option><option value="422016">422016 - م.إ.  سيدي عبد النور</option><option value="422017">422017 - م.إ.  بيجقة</option><option value="422018">422018 - م.إ.  هنشير رومان</option><option value="422020">422020 - م.إ.  ابن خلدون بوعرادة</option><option value="422103">422103 - م.إ.   2 مارس 1934</option><option value="422104">422104 - م.إ.  بوجليدة</option><option value="422106">422106 - م.إ.  سيدي عياد</option><option value="422109">422109 - م.إ.  دشرة الحجاج</option><option value="422111">422111 - م.إ.  عين بوسلامة</option><option value="422113">422113 - م.إ.   الرّميــل</option><option value="422119">422119 - م.إ.  وادي العرعار</option><option value="422120">422120 - م.إ. ابن خلدون</option><option value="422501">422501 - م.إ.  شاكر</option><option value="422502">422502 - م.إ.   بورقيبة</option><option value="422503">422503 - محطة الأخوات</option><option value="422504">422504 - م.إ.  منجم الأخوات</option><option value="422508">422508 - م.إ.  الخروبة</option><option value="422511">422511 - م.إ.  الأقصاب</option><option value="422513">422513 - م.إ.  عين زريق</option><option value="422514">422514 - م.إ.  الطيب المهيري</option><option value="422516">422516 - م.إ.  منزل نايل</option><option value="422517">422517 - م.إ.  حي الزهور</option><option value="422518">422518 - م.إ.  بنورية</option><option value="423001">423001 - م.إ.  2 مارس 34 الكريب</option><option value="423002">423002 - م.إ.  حمام بياضة</option><option value="423003">423003 - م.إ. برج مسعودي</option><option value="423004">423004 - م.إ.  حمام السخون</option><option value="423005">423005 - م.إ.  أولاد طالب</option><option value="423007">423007 - م.إ.  عقبة السلوقي</option><option value="423013">423013 - م.إ.  العالية</option><option value="423014">423014 - م.إ.  الدخانية القديمة</option><option value="423015">423015 - م.إ.  مدين</option><option value="423017">423017 - الحبيب بورقيبة</option><option value="423018">423018 - م.إ.  الخنقة</option><option value="423019">423019 - م.إ.  الدخانية الجديدة</option><option value="423020">423020 - م.إ.  عرقوب كلاع</option><option value="423021">423021 - م.إ.  وادي اللوز</option><option value="423022">423022 - م.إ. حي النصر</option><option value="423023">423023 - م.إ.  المهيريس</option><option value="423501">423501 - م.إ.  السّيـادة</option><option value="423502">423502 - م.إ.  حشاد</option><option value="423503">423503 - م.إ.   شاكر</option><option value="423506">423506 - م.إ.  الخيزران</option><option value="423507">423507 - م.إ.  سند الحداد</option><option value="423508">423508 - م.إ.  جوف صدين</option><option value="423510">423510 - م.إ.  حوش الصفايا</option><option value="423512">423512 - م.إ.  بني حازم</option><option value="423514">423514 - م.إ.  القرعة</option><option value="423515">423515 - م.إ.  الشوارنية</option><option value="423517">423517 - م.إ.  رأس الوادي</option><option value="423518">423518 - م.إ.  سوق الجمعة</option><option value="423519">423519 - م.إ.  التلة</option><option value="423522">423522 - م.إ.  صيار</option><option value="423523">423523 - م.إ.  وادي الرمل</option><option value="423524">423524 - م.إ.  الحمادة</option><option value="423525">423525 - م.إ.  أولاد الشيخ</option><option value="423526">423526 - م.إ.  الزواكرة</option><option value="423527">423527 - م.إ.  قصر اللوح</option><option value="423528">423528 - م.إ.  أولاد علي</option><option value="423529">423529 - م.إ.  الحصحاصية</option><option value="423530">423530 - م.إ.  الحذايقية</option><option value="523531">523531 - م.إ.  الزعرورة</option><option value="424001">424001 - م.إ.  2 مارس 34 الروحية</option><option value="424002">424002 - م.إ.  الهرية</option><option value="424003">424003 - م.إ.  فندق دبيش</option><option value="424004">424004 - م.إ.  جلاب القديمة</option><option value="424005">424005 - م.إ.  الحبابسة</option><option value="424006">424006 - م.إ.  أولاد زيتون</option><option value="424007">424007 - م.إ. بوعجيلة</option><option value="424008">424008 - م.إ.  برج دبيش</option><option value="424009">424009 - م.إ.  الباطن</option><option value="424010">424010 - م.إ.  الشوشة</option><option value="424011">424011 - م.إ.  الحميمة</option><option value="424013">424013 - م.إ.  المرثوم</option><option value="424014">424014 - م.إ.  النقاقشة</option><option value="424015">424015 - م.إ.  النجايمية</option><option value="424016">424016 - م.إ.  سيدي مولى</option><option value="424017">424017 - م.إ.حي السعادة</option><option value="424018">424018 - م.إ.  المقرونة</option><option value="424019">424019 - م.إ.  أولاد بلال</option><option value="424020">424020 - م.إ.  الصويوين</option><option value="424021">424021 - م.إ.  السميرات</option><option value="424022">424022 - م.إ. حي النور</option><option value="424023">424023 - م.إ.  الجلاب الجديدة</option><option value="424024">424024 - م.إ.  بربرو</option><option value="424025">424025 - م.إ.  أولاد بلغيث</option><option value="424026">424026 - م.إ.  جلجل</option><option value="424027">424027 - الزقلاص</option><option value="424028">424028 - م.إ.  الدليوات</option><option value="425001">425001 - م.إ.   محطة الكريب</option><option value="425002">425002 - م.إ.  العباسي</option><option value="425003">425003 - م.إ.  النشم</option><option value="425004">425004 - م.إ.  الرويسين القديمة</option><option value="425005">425005 - م.إ.  2 مارس 34</option><option value="425006">425006 - م.إ.  بورويس الفلاحي</option><option value="425007">425007 - م.إ.  التريشة</option><option value="425008">425008 - م.إ.  أولاد يوسف</option><option value="425009">425009 - م.إ.  الحياة</option><option value="425010">425010 - م.إ.ابو القاسم الشابي</option><option value="425011">425011 - م.إ.  الرويسين الجديدة</option><option value="425501">425501 - م.إ.  2 مارس 34  ---</option><option value="425502">425502 - م.إ.  المنصورة القديمة</option><option value="425503">425503 - م.إ.  القرية الجنوبية</option><option value="425504">425504 - م.إ.  الحمام</option><option value="425505">425505 - م.إ.  بوعبدالله</option><option value="425506">425506 - م.إ.  الفضول</option><option value="425507">425507 - م.إ.  اللوزة القديمة</option><option value="425509">425509 - فرحات حشاد</option><option value="425510">425510 - م.إ.  اللوزة الجديدة</option><option value="425511">425511 - م.إ.  ذواودة كسرى</option><option value="425512">425512 - م.إ.  كسرى الجديدة</option><option value="425513">425513 - م.إ.  القرية الشمالية</option><option value="425514">425514 - م.إ.  أولاد بوعافية</option><option value="425515">425515 - م.إ.  جنوة كسرى</option></select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-key ms-1"></i>كلمة المرور
+                            </label>
+                            <input type="password" class="form-control" id="password" required="">
+                            <small class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input type="checkbox" class="form-check-input" id="adminLogin">
+                            <label class="form-check-label" for="adminLogin">
+                                دخول كمدير عام
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-sign-in-alt ms-2"></i>دخول
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- School Dashboard -->
+    <div class="school-dashboard" id="schoolDashboard">
+        <div class="container">
+            <!-- School Info -->
+            <div class="school-info">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2 id="schoolName">م.إ. البريد</h2>
+                        <p id="schoolDelegation">المعتمدية: سليانة الشمالية - الرمز: 421001</p>
+                    </div>
+                    <div class="col-md-4 text-md-start">
+                        <button class="btn btn-light" onclick="logout()">
+                            <i class="fas fa-sign-out-alt ms-2"></i>تسجيل خروج
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <h5>مستوى إكمال البيانات</h5>
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%;">0%</div>
+                </div>
+            </div>
+
+            <!-- Data Form -->
+            <form id="dataForm">
+                <!-- Trimester Tabs -->
+                <div class="trimester-tabs">
+                    <button type="button" class="trimester-tab active" onclick="switchTrimester(1)">الثلاثي الأول</button>
+                    <button type="button" class="trimester-tab" onclick="switchTrimester(2)">الثلاثي الثاني</button>
+                    <button type="button" class="trimester-tab" onclick="switchTrimester(3)">الثلاثي الثالث</button>
+                </div>
+
+                <!-- Trimester 1 Content -->
+                <div class="trimester-content active" id="trimester1">
+                    <!-- Section 1: Academic Achievement -->
+                    <div class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        تجويد مكتسبات التلاميذ إناثا و ذكورا بالمرحلة الابتدائية
+                        <span class="badge bg-light me-2">(عدد التلاميذ المتحصلين على معدل 10 فما فوق في الثلاثي الأول)</span>
+                    </div>
+
+                    <div id="achievementGrades1"></div>
+                </div>
+
+                <!-- Trimester 2 Content -->
+                <div class="trimester-content" id="trimester2">
+                    <!-- Section 1: Academic Achievement -->
+                    <div class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        تجويد مكتسبات التلاميذ إناثا و ذكورا بالمرحلة الابتدائية
+                        <span class="badge bg-light me-2">(عدد التلاميذ المتحصلين على معدل 10 فما فوق في الثلاثي الثاني)</span>
+                    </div>
+
+                    <div id="achievementGrades2"></div>
+                </div>
+
+                <!-- Trimester 3 Content -->
+                <div class="trimester-content" id="trimester3">
+                    <!-- Section 1: Academic Achievement -->
+                    <div class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        تجويد مكتسبات التلاميذ إناثا و ذكورا بالمرحلة الابتدائية
+                        <span class="badge bg-light me-2">(عدد التلاميذ المتحصلين على معدل 10 فما فوق في الثلاثي الثالث)</span>
+                    </div>
+
+                    <div id="achievementGrades3"></div>
+                </div>
+
+                <!-- Section 2: Dropouts -->
+                <div class="section-title">
+                    <i class="fas fa-user-times"></i>
+                    الانقطاع الى غاية 2025/12/20
+                </div>
+
+                <div class="grade-card">
+                    <div class="grade-title">العدد الجملي للانقطاع</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">العدد الكلي</label>
+                            <input type="number" class="form-control" id="totalDropouts" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dropoutGrades"></div>
+
+                <div class="grade-card">
+                    <div class="grade-title">أسباب الانقطاع</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">الاسباب المباشرة للانقطاع</label>
+                            <textarea class="form-control" id="directReasons" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">الاسباب الغير المباشرة للانقطاع</label>
+                            <textarea class="form-control" id="indirectReasons" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Absences -->
+                <div class="section-title">
+                    <i class="fas fa-calendar-times"></i>
+                    عدد ايام غيابات التلاميذ و الأطر الى غاية 2025/01/04
+                </div>
+
+                <div class="grade-card">
+                    <div class="grade-title">غيابات التلاميذ</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">عدد ايام غيابات التلاميذ المبررة</label>
+                            <input type="number" class="form-control" id="justifiedAbsences" min="0">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">عدد ايام غيابات التلاميذ غير المبررة</label>
+                            <input type="number" class="form-control" id="unjustifiedAbsences" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grade-card">
+                    <div class="grade-title">غيابات الأطر</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">عدد ايام غيابات اطار التدريس</label>
+                            <input type="number" class="form-control" id="teachingStaffAbsences" min="0">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">عدد ايام غيابات الاطار الاداري</label>
+                            <input type="number" class="form-control" id="adminStaffAbsences" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Save Button -->
+                <div class="floating-save">
+                    <button type="submit" class="btn btn-success btn-lg rounded-circle">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <div class="container">
+            <!-- Admin Header -->
+            <div class="school-info">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2>لوحة تحكم المدير العام</h2>
+                        <p>عرض وتصدير بيانات جميع المدارس</p>
+                    </div>
+                    <div class="col-md-4 text-md-start">
+                        <button class="btn btn-light" onclick="logout()">
+                            <i class="fas fa-sign-out-alt ms-2"></i>تسجيل خروج
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-icon text-primary">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="stats-number" id="totalSchools">207</div>
+                        <div>إجمالي المدارس</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card text-success">
+                        <div class="stats-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stats-number" id="completedSchools">0</div>
+                        <div>أكملت البيانات</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card text-warning">
+                        <div class="stats-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stats-number" id="partialSchools">0</div>
+                        <div>بيانات جزئية</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card text-danger">
+                        <div class="stats-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stats-number" id="missingSchools">207</div>
+                        <div>لم تبدأ بعد</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Buttons -->
+            <div class="export-buttons">
+                <button class="btn btn-primary" onclick="exportToExcel(1)">
+                    <i class="fas fa-file-excel ms-2"></i>تصدير الثلاثي الأول
+                </button>
+                <button class="btn btn-primary" onclick="exportToExcel(2)">
+                    <i class="fas fa-file-excel ms-2"></i>تصدير الثلاثي الثاني
+                </button>
+                <button class="btn btn-primary" onclick="exportToExcel(3)">
+                    <i class="fas fa-file-excel ms-2"></i>تصدير الثلاثي الثالث
+                </button>
+                <button class="btn btn-success" onclick="printReport()">
+                    <i class="fas fa-print ms-2"></i>طباعة التقرير
+                </button>
+                <button class="btn btn-info" onclick="refreshData()">
+                    <i class="fas fa-sync-alt ms-2"></i>تحديث البيانات
+                </button>
+            </div>
+
+            <!-- Data Table -->
+            <div class="data-table">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm" id="schoolsTable">
+                        <thead>
+                        <tr>
+                            <th>الرمز</th>
+                            <th>المعتمدية</th>
+                            <th>المدرسة</th>
+                            <th>مستوى الإكمال</th>
+                            <th>آخر تحديث</th>
+                            <th>إجراءات</th>
+                        </tr>
+                        </thead>
+                        <tbody id="schoolsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Excel Preview Modal -->
+            <div class="excel-preview" id="excelPreview" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>جدول بيانات المدرسة</h4>
+                    <button class="btn btn-secondary" onclick="closeExcelPreview()">
+                        <i class="fas fa-times ms-2"></i>إغلاق
+                    </button>
+                </div>
+                <div id="excelPreviewContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Updated Schools Data
+        const schoolsData = [
+            // سليانة الشمالية
+            {code: "421001", name: "م.إ.  البريد", delegation: "سليانة الشمالية"},
+            {code: "421003", name: "م.إ.  البلهوان", delegation: "سليانة الشمالية"},
+            {code: "421004", name: "م.إ.  حي الصلاح", delegation: "سليانة الشمالية"},
+            {code: "421012", name: "م.إ.   جامة", delegation: "سليانة الشمالية"},
+            {code: "421014", name: "م.إ.  عين الديسة", delegation: "سليانة الشمالية"},
+            {code: "421017", name: "م.إ.  مديونة", delegation: "سليانة الشمالية"},
+            {code: "421018", name: "م.إ.  الصاحبين", delegation: "سليانة الشمالية"},
+            {code: "421024", name: "م.إ. بن زكري يهبـو", delegation: "سليانة الشمالية"},
+            {code: "421025", name: "م.إ.  دشرة الخلصة", delegation: "سليانة الشمالية"},
+            {code: "421030", name: "م.إ.  الجوى", delegation: "سليانة الشمالية"},
+            {code: "421031", name: "م.إ.  عرقوب الخلصة", delegation: "سليانة الشمالية"},
+            {code: "421036", name: "م.إ.  الخزامي", delegation: "سليانة الشمالية"},
+            {code: "421037", name: "م.إ.  حي النور-", delegation: "سليانة الشمالية"},
+            {code: "421038", name: "م.إ.  زواغة", delegation: "سليانة الشمالية"},
+            {code: "421040", name: "م.إ.الشهداء -", delegation: "سليانة الشمالية"},
+            {code: "421041", name: "م.إ.  بن زكري", delegation: "سليانة الشمالية"},
+            {code: "421043", name: "م.إ.  الطيب المهيري", delegation: "سليانة الشمالية"},
+            {code: "421044", name: "م.إ.  الطويبية", delegation: "سليانة الشمالية"},
+            {code: "421045", name: "م.إ.  حي النزهة", delegation: "سليانة الشمالية"},
+
+            // سليانة الجنوبية
+            {code: "421301", name: "م.إ.  رأس الماء", delegation: "سليانة الجنوبية"},
+            {code: "421302", name: "م.إ.  سيدي حماده", delegation: "سليانة الجنوبية"},
+            {code: "421303", name: "م.إ.  الغماليــة", delegation: "سليانة الجنوبية"},
+            {code: "421304", name: "م.إ.  القابل", delegation: "سليانة الجنوبية"},
+            {code: "421305", name: "م.إ.  قبر الغول", delegation: "سليانة الجنوبية"},
+            {code: "421306", name: "م.إ.  القنارة", delegation: "سليانة الجنوبية"},
+            {code: "421307", name: "م.إ.  القنطرة", delegation: "سليانة الجنوبية"},
+            {code: "421308", name: "م.إ. مرج مقدم", delegation: "سليانة الجنوبية"},
+            {code: "421310", name: "م.إ.  العذابة", delegation: "سليانة الجنوبية"},
+            {code: "421311", name: "م.إ.  عين القصبات", delegation: "سليانة الجنوبية"},
+            {code: "421312", name: "م.إ.  عرقوب الدبغة", delegation: "سليانة الجنوبية"},
+            {code: "421314", name: "م.إ.  غياضة", delegation: "سليانة الجنوبية"},
+            {code: "421315", name: "م.إ.  حانوت مرزوق", delegation: "سليانة الجنوبية"},
+            {code: "421316", name: "م.إ.  عين أم الحبال", delegation: "سليانة الجنوبية"},
+            {code: "421317", name: "م.إ.  الزريبة", delegation: "سليانة الجنوبية"},
+            {code: "421318", name: "م.إ.  النمايرية", delegation: "سليانة الجنوبية"},
+            {code: "421319", name: "م.إ.  قصر حديد", delegation: "سليانة الجنوبية"},
+            {code: "421320", name: "م.إ.  صنوبرين", delegation: "سليانة الجنوبية"},
+            {code: "421321", name: "م.إ.  سيدي عامر", delegation: "سليانة الجنوبية"},
+            {code: "421322", name: "م.إ.  المرقب", delegation: "سليانة الجنوبية"},
+            {code: "421324", name: "م.إ.  الجمهورية", delegation: "سليانة الجنوبية"},
+            {code: "421325", name: "م.إ.  الحرية", delegation: "سليانة الجنوبية"},
+            {code: "421326", name: "م.إ.حي الأنس", delegation: "سليانة الجنوبية"},
+
+            // برقو
+            {code: "421501", name: "م.إ.  2 مارس", delegation: "برقو"},
+            {code: "421502", name: "م.إ.  سيدي سعيد", delegation: "برقو"},
+            {code: "421503", name: "م.إ.  عين بوسعدية", delegation: "برقو"},
+            {code: "421504", name: "م.إ.  عين زكار", delegation: "برقو"},
+            {code: "421505", name: "م.إ.  سيدي زيد", delegation: "برقو"},
+            {code: "421506", name: "م.إ.  صدقة", delegation: "برقو"},
+            {code: "421507", name: "م.إ.  الدريجة", delegation: "برقو"},
+            {code: "421508", name: "م.إ.  الكنازيز", delegation: "برقو"},
+            {code: "421510", name: "م.إ.  مرج عوام", delegation: "برقو"},
+            {code: "421511", name: "م.إ.  دمان الخرّوب", delegation: "برقو"},
+            {code: "421513", name: "م.إ.  حي الزهور", delegation: "برقو"},
+            {code: "421514", name: "م.إ.  أولاد بن عمر", delegation: "برقو"},
+            {code: "421516", name: "م.إ.  البياض", delegation: "برقو"},
+            {code: "421517", name: "م.إ.  عين فرنة", delegation: "برقو"},
+
+            // بوعرادة
+            {code: "422001", name: "م.إ.  الجمهورية", delegation: "بوعرادة"},
+            {code: "422002", name: "م.إ.  نهج نابل", delegation: "بوعرادة"},
+            {code: "422005", name: "م.إ.  هنشير فطيـس", delegation: "بوعرادة"},
+            {code: "422006", name: "م.إ.  محطة الجليدة", delegation: "بوعرادة"},
+            {code: "422007", name: "م.إ.  قصر بوخريص", delegation: "بوعرادة"},
+            {code: "422008", name: "م.إ.  طرف الشناء", delegation: "بوعرادة"},
+            {code: "422012", name: "م.إ.  عين قسيل", delegation: "بوعرادة"},
+            {code: "422014", name: "م.إ.  أولاد عرفة", delegation: "بوعرادة"},
+            {code: "422015", name: "م.إ.  حي الزياتين", delegation: "بوعرادة"},
+            {code: "422016", name: "م.إ.  سيدي عبد النور", delegation: "بوعرادة"},
+            {code: "422017", name: "م.إ.  بيجقة", delegation: "بوعرادة"},
+            {code: "422018", name: "م.إ.  هنشير رومان", delegation: "بوعرادة"},
+            {code: "422020", name: "م.إ.  ابن خلدون بوعرادة", delegation: "بوعرادة"},
+
+            // العروسة
+            {code: "422103", name: "م.إ.   2 مارس 1934", delegation: "العروسة"},
+            {code: "422104", name: "م.إ.  بوجليدة", delegation: "العروسة"},
+            {code: "422106", name: "م.إ.  سيدي عياد", delegation: "العروسة"},
+            {code: "422109", name: "م.إ.  دشرة الحجاج", delegation: "العروسة"},
+            {code: "422111", name: "م.إ.  عين بوسلامة", delegation: "العروسة"},
+            {code: "422113", name: "م.إ.   الرّميــل", delegation: "العروسة"},
+            {code: "422119", name: "م.إ.  وادي العرعار", delegation: "العروسة"},
+            {code: "422120", name: "م.إ. ابن خلدون", delegation: "العروسة"},
+
+            // فعفور
+            {code: "422501", name: "م.إ.  شاكر", delegation: "فعفور"},
+            {code: "422502", name: "م.إ.   بورقيبة", delegation: "فعفور"},
+            {code: "422503", name: "محطة الأخوات", delegation: "فعفور"},
+            {code: "422504", name: "م.إ.  منجم الأخوات", delegation: "فعفور"},
+            {code: "422508", name: "م.إ.  الخروبة", delegation: "فعفور"},
+            {code: "422511", name: "م.إ.  الأقصاب", delegation: "فعفور"},
+            {code: "422513", name: "م.إ.  عين زريق", delegation: "فعفور"},
+            {code: "422514", name: "م.إ.  الطيب المهيري", delegation: "فعفور"},
+            {code: "422516", name: "م.إ.  منزل نايل", delegation: "فعفور"},
+            {code: "422517", name: "م.إ.  حي الزهور", delegation: "فعفور"},
+            {code: "422518", name: "م.إ.  بنورية", delegation: "فعفور"},
+
+            // الكريب
+            {code: "423001", name: "م.إ.  2 مارس 34 الكريب", delegation: "الكريب"},
+            {code: "423002", name: "م.إ.  حمام بياضة", delegation: "الكريب"},
+            {code: "423003", name: "م.إ. برج مسعودي", delegation: "الكريب"},
+            {code: "423004", name: "م.إ.  حمام السخون", delegation: "الكريب"},
+            {code: "423005", name: "م.إ.  أولاد طالب", delegation: "الكريب"},
+            {code: "423007", name: "م.إ.  عقبة السلوقي", delegation: "الكريب"},
+            {code: "423013", name: "م.إ.  العالية", delegation: "الكريب"},
+            {code: "423014", name: "م.إ.  الدخانية القديمة", delegation: "الكريب"},
+            {code: "423015", name: "م.إ.  مدين", delegation: "الكريب"},
+            {code: "423017", name: "الحبيب بورقيبة", delegation: "الكريب"},
+            {code: "423018", name: "م.إ.  الخنقة", delegation: "الكريب"},
+            {code: "423019", name: "م.إ.  الدخانية الجديدة", delegation: "الكريب"},
+            {code: "423020", name: "م.إ.  عرقوب كلاع", delegation: "الكريب"},
+            {code: "423021", name: "م.إ.  وادي اللوز", delegation: "الكريب"},
+            {code: "423022", name: "م.إ. حي النصر", delegation: "الكريب"},
+            {code: "423023", name: "م.إ.  المهيريس", delegation: "الكريب"},
+
+            // مكثر
+            {code: "423501", name: "م.إ.  السّيـادة", delegation: "مكثر"},
+            {code: "423502", name: "م.إ.  حشاد", delegation: "مكثر"},
+            {code: "423503", name: "م.إ.   شاكر", delegation: "مكثر"},
+            {code: "423506", name: "م.إ.  الخيزران", delegation: "مكثر"},
+            {code: "423507", name: "م.إ.  سند الحداد", delegation: "مكثر"},
+            {code: "423508", name: "م.إ.  جوف صدين", delegation: "مكثر"},
+            {code: "423510", name: "م.إ.  حوش الصفايا", delegation: "مكثر"},
+            {code: "423512", name: "م.إ.  بني حازم", delegation: "مكثر"},
+            {code: "423514", name: "م.إ.  القرعة", delegation: "مكثر"},
+            {code: "423515", name: "م.إ.  الشوارنية", delegation: "مكثر"},
+            {code: "423517", name: "م.إ.  رأس الوادي", delegation: "مكثر"},
+            {code: "423518", name: "م.إ.  سوق الجمعة", delegation: "مكثر"},
+            {code: "423519", name: "م.إ.  التلة", delegation: "مكثر"},
+            {code: "423522", name: "م.إ.  صيار", delegation: "مكثر"},
+            {code: "423523", name: "م.إ.  وادي الرمل", delegation: "مكثر"},
+            {code: "423524", name: "م.إ.  الحمادة", delegation: "مكثر"},
+            {code: "423525", name: "م.إ.  أولاد الشيخ", delegation: "مكثر"},
+            {code: "423526", name: "م.إ.  الزواكرة", delegation: "مكثر"},
+            {code: "423527", name: "م.إ.  قصر اللوح", delegation: "مكثر"},
+            {code: "423528", name: "م.إ.  أولاد علي", delegation: "مكثر"},
+            {code: "423529", name: "م.إ.  الحصحاصية", delegation: "مكثر"},
+            {code: "423530", name: "م.إ.  الحذايقية", delegation: "مكثر"},
+            {code: "523531", name: "م.إ.  الزعرورة", delegation: "مكثر"},
+
+            // الروحية
+            {code: "424001", name: "م.إ.  2 مارس 34 الروحية", delegation: "الروحية"},
+            {code: "424002", name: "م.إ.  الهرية", delegation: "الروحية"},
+            {code: "424003", name: "م.إ.  فندق دبيش", delegation: "الروحية"},
+            {code: "424004", name: "م.إ.  جلاب القديمة", delegation: "الروحية"},
+            {code: "424005", name: "م.إ.  الحبابسة", delegation: "الروحية"},
+            {code: "424006", name: "م.إ.  أولاد زيتون", delegation: "الروحية"},
+            {code: "424007", name: "م.إ. بوعجيلة", delegation: "الروحية"},
+            {code: "424008", name: "م.إ.  برج دبيش", delegation: "الروحية"},
+            {code: "424009", name: "م.إ.  الباطن", delegation: "الروحية"},
+            {code: "424010", name: "م.إ.  الشوشة", delegation: "الروحية"},
+            {code: "424011", name: "م.إ.  الحميمة", delegation: "الروحية"},
+            {code: "424013", name: "م.إ.  المرثوم", delegation: "الروحية"},
+            {code: "424014", name: "م.إ.  النقاقشة", delegation: "الروحية"},
+            {code: "424015", name: "م.إ.  النجايمية", delegation: "الروحية"},
+            {code: "424016", name: "م.إ.  سيدي مولى", delegation: "الروحية"},
+            {code: "424017", name: "م.إ.حي السعادة", delegation: "الروحية"},
+            {code: "424018", name: "م.إ.  المقرونة", delegation: "الروحية"},
+            {code: "424019", name: "م.إ.  أولاد بلال", delegation: "الروحية"},
+            {code: "424020", name: "م.إ.  الصويوين", delegation: "الروحية"},
+            {code: "424021", name: "م.إ.  السميرات", delegation: "الروحية"},
+            {code: "424022", name: "م.إ. حي النور", delegation: "الروحية"},
+            {code: "424023", name: "م.إ.  الجلاب الجديدة", delegation: "الروحية"},
+            {code: "424024", name: "م.إ.  بربرو", delegation: "الروحية"},
+            {code: "424025", name: "م.إ.  أولاد بلغيث", delegation: "الروحية"},
+            {code: "424026", name: "م.إ.  جلجل", delegation: "الروحية"},
+            {code: "424027", name: "الزقلاص", delegation: "الروحية"},
+            {code: "424028", name: "م.إ.  الدليوات", delegation: "الروحية"},
+
+            // بورويس
+            {code: "425001", name: "م.إ.   محطة الكريب", delegation: "بورويس"},
+            {code: "425002", name: "م.إ.  العباسي", delegation: "بورويس"},
+            {code: "425003", name: "م.إ.  النشم", delegation: "بورويس"},
+            {code: "425004", name: "م.إ.  الرويسين القديمة", delegation: "بورويس"},
+            {code: "425005", name: "م.إ.  2 مارس 34", delegation: "بورويس"},
+            {code: "425006", name: "م.إ.  بورويس الفلاحي", delegation: "بورويس"},
+            {code: "425007", name: "م.إ.  التريشة", delegation: "بورويس"},
+            {code: "425008", name: "م.إ.  أولاد يوسف", delegation: "بورويس"},
+            {code: "425009", name: "م.إ.  الحياة", delegation: "بورويس"},
+            {code: "425010", name: "م.إ.ابو القاسم الشابي", delegation: "بورويس"},
+            {code: "425011", name: "م.إ.  الرويسين الجديدة", delegation: "بورويس"},
+
+            // كسرى
+            {code: "425501", name: "م.إ.  2 مارس 34  ---", delegation: "كسرى"},
+            {code: "425502", name: "م.إ.  المنصورة القديمة", delegation: "كسرى"},
+            {code: "425503", name: "م.إ.  القرية الجنوبية", delegation: "كسرى"},
+            {code: "425504", name: "م.إ.  الحمام", delegation: "كسرى"},
+            {code: "425505", name: "م.إ.  بوعبدالله", delegation: "كسرى"},
+            {code: "425506", name: "م.إ.  الفضول", delegation: "كسرى"},
+            {code: "425507", name: "م.إ.  اللوزة القديمة", delegation: "كسرى"},
+            {code: "425509", name: "فرحات حشاد", delegation: "كسرى"},
+            {code: "425510", name: "م.إ.  اللوزة الجديدة", delegation: "كسرى"},
+            {code: "425511", name: "م.إ.  ذواودة كسرى", delegation: "كسرى"},
+            {code: "425512", name: "م.إ.  كسرى الجديدة", delegation: "كسرى"},
+            {code: "425513", name: "م.إ.  القرية الشمالية", delegation: "كسرى"},
+            {code: "425514", name: "م.إ.  أولاد بوعافية", delegation: "كسرى"},
+            {code: "425515", name: "م.إ.  جنوة كسرى", delegation: "كسرى"}
+        ];
+
+        // Grades for Achievement Section
+        const achievementGrades = [
+            "التحضيري", "الأولى", "الثانية", "الثالثة", "الرابعة", "الخامسة", "السادسة"
+        ];
+
+        // Grades for Dropout Section
+        const dropoutGrades = [
+            "التحضيري", "الأولى", "الثانية", "الثالثة", "الرابعة", "الخامسة", "السادسة"
+        ];
+
+        // Current School Data
+        let currentSchool = null;
+        let schoolData = {};
+        let allSchoolsData = {};
+        let currentTrimester = 1;
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing app...');
+            populateSchoolSelect();
+            setupEventListeners();
+            generateFormFields();
+            loadStoredData();
+        });
+
+        // Populate School Select
+        function populateSchoolSelect() {
+            const select = document.getElementById('schoolCode');
+            console.log('Populating school select...');
+
+            if (!select) {
+                console.error('School select element not found!');
+                return;
+            }
+
+            // Clear existing options except first one
+            while (select.children.length > 1) {
+                select.removeChild(select.lastChild);
+            }
+
+            schoolsData.forEach((school, index) => {
+                const option = document.createElement('option');
+                option.value = school.code;
+                option.textContent = `${school.code} - ${school.name}`;
+                select.appendChild(option);
+            });
+
+            console.log(`Added ${schoolsData.length} schools to select`);
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Login Form
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+
+            // Data Form
+            const dataForm = document.getElementById('dataForm');
+            if (dataForm) {
+                dataForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    saveSchoolData();
+                });
+            }
+        }
+
+        // Generate Form Fields
+        function generateFormFields() {
+            // Generate achievement fields for all trimesters
+            for (let t = 1; t <= 3; t++) {
+                const achievementContainer = document.getElementById(`achievementGrades${t}`);
+                if (achievementContainer) {
+                    achievementGrades.forEach(grade => {
+                        const gradeCard = document.createElement('div');
+                        gradeCard.className = 'grade-card';
+                        gradeCard.innerHTML = `
+                            <div class="grade-title">${grade}</div>
+                            <div class="gender-section">
+                                <div class="total-block">
+                                    <div class="gender-label">
+                                        <i class="fas fa-calculator text-white"></i> العدد الجملي
+                                    </div>
+                                    <input type="number" class="form-control" id="ach_t${t}_${grade}_total" min="0" onchange="calculatePercentage('${grade}', 'ach', ${t})" style="background: rgba(255,255,255,0.9); color: var(--primary-color); font-weight: bold;">
+                                </div>
+                                <div class="gender-block">
+                                    <div class="gender-label">
+                                        <i class="fas fa-female text-danger"></i> إناث
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label">العدد</label>
+                                            <input type="number" class="form-control" id="ach_t${t}_${grade}_f_count" min="0" onchange="calculatePercentage('${grade}', 'ach', ${t})">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">النسبة %</label>
+                                            <input type="number" class="form-control" id="ach_t${t}_${grade}_f_percent" min="0" max="100" step="0.1" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="gender-block">
+                                    <div class="gender-label">
+                                        <i class="fas fa-male text-primary"></i> ذكور
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label">العدد</label>
+                                            <input type="number" class="form-control" id="ach_t${t}_${grade}_m_count" min="0" onchange="calculatePercentage('${grade}', 'ach', ${t})">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">النسبة %</label>
+                                            <input type="number" class="form-control" id="ach_t${t}_${grade}_m_percent" min="0" max="100" step="0.1" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        achievementContainer.appendChild(gradeCard);
+                    });
+                }
+            }
+
+            // Dropout Grades
+            const dropoutContainer = document.getElementById('dropoutGrades');
+            if (dropoutContainer) {
+                dropoutGrades.forEach(grade => {
+                    const gradeCard = document.createElement('div');
+                    gradeCard.className = 'grade-card';
+                    gradeCard.innerHTML = `
+                        <div class="grade-title">${grade}</div>
+                        <div class="gender-section">
+                            <div class="total-block">
+                                <div class="gender-label">
+                                    <i class="fas fa-calculator text-white"></i> العدد الجملي
+                                </div>
+                                <input type="number" class="form-control" id="drop_${grade}_total" min="0" onchange="calculatePercentage('${grade}', 'drop')" style="background: rgba(255,255,255,0.9); color: var(--primary-color); font-weight: bold;">
+                            </div>
+                            <div class="gender-block">
+                                <div class="gender-label">
+                                    <i class="fas fa-female text-danger"></i> إناث
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">العدد</label>
+                                        <input type="number" class="form-control" id="drop_${grade}_f_count" min="0" onchange="calculatePercentage('${grade}', 'drop')">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">النسبة %</label>
+                                        <input type="number" class="form-control" id="drop_${grade}_f_percent" min="0" max="100" step="0.1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gender-block">
+                                <div class="gender-label">
+                                    <i class="fas fa-male text-primary"></i> ذكور
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">العدد</label>
+                                        <input type="number" class="form-control" id="drop_${grade}_m_count" min="0" onchange="calculatePercentage('${grade}', 'drop')">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">النسبة %</label>
+                                        <input type="number" class="form-control" id="drop_${grade}_m_percent" min="0" max="100" step="0.1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    dropoutContainer.appendChild(gradeCard);
+                });
+            }
+        }
+
+        // Switch Trimester
+        function switchTrimester(trimester) {
+            currentTrimester = trimester;
+
+            // Update tab buttons
+            document.querySelectorAll('.trimester-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.trimester-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`trimester${trimester}`).classList.add('active');
+        }
+
+        // Calculate percentage based on counts and total
+        function calculatePercentage(grade, type, trimester = null) {
+            const prefix = trimester ? `ach_t${trimester}_` : `${type}_`;
+            const fCount = parseInt(document.getElementById(`${prefix}${grade}_f_count`)?.value) || 0;
+            const mCount = parseInt(document.getElementById(`${prefix}${grade}_m_count`)?.value) || 0;
+            const total = parseInt(document.getElementById(`${prefix}${grade}_total`)?.value) || 0;
+
+            // Calculate percentages if total is not zero
+            if (total > 0) {
+                const fPercent = ((fCount / total) * 100).toFixed(1);
+                const mPercent = ((mCount / total) * 100).toFixed(1);
+
+                const fPercentInput = document.getElementById(`${prefix}${grade}_f_percent`);
+                const mPercentInput = document.getElementById(`${prefix}${grade}_m_percent`);
+
+                if (fPercentInput) fPercentInput.value = fPercent;
+                if (mPercentInput) mPercentInput.value = mPercent;
+            } else {
+                // Clear percentages if total is zero
+                const fPercentInput = document.getElementById(`${prefix}${grade}_f_percent`);
+                const mPercentInput = document.getElementById(`${prefix}${grade}_m_percent`);
+
+                if (fPercentInput) fPercentInput.value = '';
+                if (mPercentInput) mPercentInput.value = '';
+            }
+        }
+
+        // Load stored data from localStorage
+        function loadStoredData() {
+            const stored = localStorage.getItem('schoolsData');
+            if (stored) {
+                try {
+                    allSchoolsData = JSON.parse(stored);
+                    console.log('Loaded stored data for', Object.keys(allSchoolsData).length, 'schools');
+                } catch (e) {
+                    console.error('Error loading stored data:', e);
+                    allSchoolsData = {};
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('schoolsData', JSON.stringify(allSchoolsData));
+        }
+
+        // Handle Login
+        function handleLogin() {
+            const schoolCode = document.getElementById('schoolCode').value;
+            const password = document.getElementById('password').value;
+            const isAdmin = document.getElementById('adminLogin').checked;
+
+            if (!schoolCode || !password) {
+                showAlert('الرجاء إدخال جميع الحقول', 'warning');
+                return;
+            }
+
+            if (isAdmin) {
+                if (password === 'admin123') {
+                    showAdminDashboard();
+                } else {
+                    showAlert('كلمة مرور المدير غير صحيحة', 'danger');
+                }
+            } else {
+                if (password === schoolCode) {
+                    currentSchool = schoolsData.find(s => s.code === schoolCode);
+                    if (currentSchool) {
+                        showSchoolDashboard();
+                        loadSchoolData();
+                    } else {
+                        showAlert('المدرسة غير موجودة', 'danger');
+                    }
+                } else {
+                    showAlert('كلمة المرور غير صحيحة', 'danger');
+                }
+            }
+        }
+
+        // Show School Dashboard
+        function showSchoolDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('schoolDashboard').style.display = 'block';
+            document.getElementById('schoolName').textContent = currentSchool.name;
+            document.getElementById('schoolDelegation').textContent = `المعتمدية: ${currentSchool.delegation} - الرمز: ${currentSchool.code}`;
+        }
+
+        // Show Admin Dashboard
+        function showAdminDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadAllSchoolsData();
+        }
+
+        // Load School Data
+        function loadSchoolData() {
+            schoolData = allSchoolsData[currentSchool.code] || {};
+            populateForm();
+            updateProgress();
+        }
+
+        // Populate Form with Data
+        function populateForm() {
+            // Load data for all trimesters
+            for (let t = 1; t <= 3; t++) {
+                const trimesterData = schoolData[`trimester${t}`] || {};
+
+                achievementGrades.forEach(grade => {
+                    if (trimesterData.achievement && trimesterData.achievement[grade]) {
+                        const fCount = document.getElementById(`ach_t${t}_${grade}_f_count`);
+                        const fPercent = document.getElementById(`ach_t${t}_${grade}_f_percent`);
+                        const mCount = document.getElementById(`ach_t${t}_${grade}_m_count`);
+                        const mPercent = document.getElementById(`ach_t${t}_${grade}_m_percent`);
+                        const total = document.getElementById(`ach_t${t}_${grade}_total`);
+
+                        if (fCount) fCount.value = trimesterData.achievement[grade].female.count || '';
+                        if (fPercent) fPercent.value = trimesterData.achievement[grade].female.percentage || '';
+                        if (mCount) mCount.value = trimesterData.achievement[grade].male.count || '';
+                        if (mPercent) mPercent.value = trimesterData.achievement[grade].male.percentage || '';
+                        if (total) total.value = trimesterData.achievement[grade].total || '';
+                    }
+                });
+            }
+
+            // Dropout Data
+            const totalDropouts = document.getElementById('totalDropouts');
+            if (totalDropouts) totalDropouts.value = schoolData.totalDropouts || '';
+
+            dropoutGrades.forEach(grade => {
+                if (schoolData.dropoutGrades && schoolData.dropoutGrades[grade]) {
+                    const fCount = document.getElementById(`drop_${grade}_f_count`);
+                    const fPercent = document.getElementById(`drop_${grade}_f_percent`);
+                    const mCount = document.getElementById(`drop_${grade}_m_count`);
+                    const mPercent = document.getElementById(`drop_${grade}_m_percent`);
+                    const total = document.getElementById(`drop_${grade}_total`);
+
+                    if (fCount) fCount.value = schoolData.dropoutGrades[grade].female.count || '';
+                    if (fPercent) fPercent.value = schoolData.dropoutGrades[grade].female.percentage || '';
+                    if (mCount) mCount.value = schoolData.dropoutGrades[grade].male.count || '';
+                    if (mPercent) mPercent.value = schoolData.dropoutGrades[grade].male.percentage || '';
+                    if (total) total.value = schoolData.dropoutGrades[grade].total || '';
+                }
+            });
+
+            const directReasons = document.getElementById('directReasons');
+            const indirectReasons = document.getElementById('indirectReasons');
+            if (directReasons) directReasons.value = schoolData.directReasons || '';
+            if (indirectReasons) indirectReasons.value = schoolData.indirectReasons || '';
+
+            // Absence Data
+            const justifiedAbsences = document.getElementById('justifiedAbsences');
+            const unjustifiedAbsences = document.getElementById('unjustifiedAbsences');
+            const teachingStaffAbsences = document.getElementById('teachingStaffAbsences');
+            const adminStaffAbsences = document.getElementById('adminStaffAbsences');
+
+            if (justifiedAbsences) justifiedAbsences.value = schoolData.justifiedAbsences || '';
+            if (unjustifiedAbsences) unjustifiedAbsences.value = schoolData.unjustifiedAbsences || '';
+            if (teachingStaffAbsences) teachingStaffAbsences.value = schoolData.teachingStaffAbsences || '';
+            if (adminStaffAbsences) adminStaffAbsences.value = schoolData.adminStaffAbsences || '';
+        }
+
+        // Save School Data
+        function saveSchoolData() {
+            // Collect data for all trimesters
+            for (let t = 1; t <= 3; t++) {
+                const achievement = {};
+                achievementGrades.forEach(grade => {
+                    const fCount = document.getElementById(`ach_t${t}_${grade}_f_count`);
+                    const fPercent = document.getElementById(`ach_t${t}_${grade}_f_percent`);
+                    const mCount = document.getElementById(`ach_t${t}_${grade}_m_count`);
+                    const mPercent = document.getElementById(`ach_t${t}_${grade}_m_percent`);
+                    const total = document.getElementById(`ach_t${t}_${grade}_total`);
+
+                    achievement[grade] = {
+                        female: {
+                            count: parseInt(fCount?.value) || 0,
+                            percentage: parseFloat(fPercent?.value) || 0
+                        },
+                        male: {
+                            count: parseInt(mCount?.value) || 0,
+                            percentage: parseFloat(mPercent?.value) || 0
+                        },
+                        total: parseInt(total?.value) || 0
+                    };
+                });
+
+                // Save trimester data
+                if (!schoolData[`trimester${t}`]) {
+                    schoolData[`trimester${t}`] = {};
+                }
+                schoolData[`trimester${t}`].achievement = achievement;
+            }
+
+            // Collect Dropout Data
+            const dropoutGradesData = {};
+            dropoutGrades.forEach(grade => {
+                const fCount = document.getElementById(`drop_${grade}_f_count`);
+                const fPercent = document.getElementById(`drop_${grade}_f_percent`);
+                const mCount = document.getElementById(`drop_${grade}_m_count`);
+                const mPercent = document.getElementById(`drop_${grade}_m_percent`);
+                const total = document.getElementById(`drop_${grade}_total`);
+
+                dropoutGradesData[grade] = {
+                    female: {
+                        count: parseInt(fCount?.value) || 0,
+                        percentage: parseFloat(fPercent?.value) || 0
+                    },
+                    male: {
+                        count: parseInt(mCount?.value) || 0,
+                        percentage: parseFloat(mPercent?.value) || 0
+                    },
+                    total: parseInt(total?.value) || 0
+                };
+            });
+
+            // Prepare Data Object
+            const dataToSave = {
+                schoolCode: currentSchool.code,
+                schoolName: currentSchool.name,
+                delegation: currentSchool.delegation,
+                trimester1: schoolData.trimester1 || {},
+                trimester2: schoolData.trimester2 || {},
+                trimester3: schoolData.trimester3 || {},
+                totalDropouts: parseInt(document.getElementById('totalDropouts')?.value) || 0,
+                dropoutGrades: dropoutGradesData,
+                directReasons: document.getElementById('directReasons')?.value || '',
+                indirectReasons: document.getElementById('indirectReasons')?.value || '',
+                justifiedAbsences: parseInt(document.getElementById('justifiedAbsences')?.value) || 0,
+                unjustifiedAbsences: parseInt(document.getElementById('unjustifiedAbsences')?.value) || 0,
+                teachingStaffAbsences: parseInt(document.getElementById('teachingStaffAbsences')?.value) || 0,
+                adminStaffAbsences: parseInt(document.getElementById('adminStaffAbsences')?.value) || 0,
+                lastUpdated: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            allSchoolsData[currentSchool.code] = dataToSave;
+            saveToLocalStorage();
+
+            showAlert('تم حفظ البيانات بنجاح', 'success');
+            updateProgress();
+        }
+
+        // Update Progress Bar
+        function updateProgress() {
+            let filledFields = 0;
+            let totalFields = 0;
+
+            // Count Achievement Fields for all trimesters
+            for (let t = 1; t <= 3; t++) {
+                achievementGrades.forEach(grade => {
+                    ['f', 'm'].forEach(gender => {
+                        totalFields += 2; // count and percentage
+                        if (document.getElementById(`ach_t${t}_${grade}_${gender}_count`)?.value) filledFields++;
+                        if (document.getElementById(`ach_t${t}_${grade}_${gender}_percent`)?.value) filledFields++;
+                    });
+                    totalFields += 1; // total
+                    if (document.getElementById(`ach_t${t}_${grade}_total`)?.value) filledFields++;
+                });
+            }
+
+            // Count Dropout Fields
+            totalFields += 1; // total dropouts
+            if (document.getElementById('totalDropouts')?.value) filledFields++;
+
+            dropoutGrades.forEach(grade => {
+                ['f', 'm'].forEach(gender => {
+                    totalFields += 2;
+                    if (document.getElementById(`drop_${grade}_${gender}_count`)?.value) filledFields++;
+                    if (document.getElementById(`drop_${grade}_${gender}_percent`)?.value) filledFields++;
+                });
+                totalFields += 1; // total
+                if (document.getElementById(`drop_${grade}_total`)?.value) filledFields++;
+            });
+
+            // Count Reason Fields
+            totalFields += 2;
+            if (document.getElementById('directReasons')?.value) filledFields++;
+            if (document.getElementById('indirectReasons')?.value) filledFields++;
+
+            // Count Absence Fields
+            totalFields += 4;
+            if (document.getElementById('justifiedAbsences')?.value) filledFields++;
+            if (document.getElementById('unjustifiedAbsences')?.value) filledFields++;
+            if (document.getElementById('teachingStaffAbsences')?.value) filledFields++;
+            if (document.getElementById('adminStaffAbsences')?.value) filledFields++;
+
+            const percentage = Math.round((filledFields / totalFields) * 100);
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+                progressBar.textContent = percentage + '%';
+            }
+        }
+
+        // Load All Schools Data (Admin)
+        function loadAllSchoolsData() {
+            populateSchoolsTable();
+            updateStatistics();
+        }
+
+        // Populate Schools Table (Admin)
+        function populateSchoolsTable() {
+            const tbody = document.getElementById('schoolsTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            schoolsData.forEach(school => {
+                const schoolData = allSchoolsData[school.code] || {};
+                const lastUpdated = schoolData.lastUpdated ? new Date(schoolData.lastUpdated).toLocaleString('ar-TN') : 'لم يتم التحديث';
+
+                // Calculate completion percentage
+                let completion = 0;
+                if (schoolData.trimester1 && schoolData.trimester1.achievement) {
+                    let filled = 0;
+                    let total = 0;
+
+                    achievementGrades.forEach(grade => {
+                        if (schoolData.trimester1.achievement[grade]) {
+                            if (schoolData.trimester1.achievement[grade].female.count > 0) filled++;
+                            if (schoolData.trimester1.achievement[grade].male.count > 0) filled++;
+                            total += 2;
+                        }
+                    });
+
+                    if (total > 0) completion = Math.round((filled / total) * 100);
+                }
+
+                let statusClass = 'status-missing';
+                let statusText = 'لم تبدأ';
+
+                if (completion === 100) {
+                    statusClass = 'status-complete';
+                    statusText = 'مكتمل';
+                } else if (completion > 0) {
+                    statusClass = 'status-partial';
+                    statusText = 'جزئي';
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${school.code}</td>
+                    <td>${school.delegation}</td>
+                    <td>${school.name}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}">${statusText} (${completion}%)</span>
+                    </td>
+                    <td>${lastUpdated}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewSchoolExcelTable('${school.code}')">
+                            <i class="fas fa-table"></i> عرض جدول
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Update Statistics (Admin)
+        function updateStatistics() {
+            let total = schoolsData.length;
+            let completed = 0;
+            let partial = 0;
+            let missing = 0;
+
+            schoolsData.forEach(school => {
+                const schoolData = allSchoolsData[school.code] || {};
+                let hasData = false;
+
+                if (schoolData.trimester1 && schoolData.trimester1.achievement) {
+                    achievementGrades.forEach(grade => {
+                        if (schoolData.trimester1.achievement[grade]) {
+                            if (schoolData.trimester1.achievement[grade].female.count > 0 ||
+                                schoolData.trimester1.achievement[grade].male.count > 0) {
+                                hasData = true;
+                            }
+                        }
+                    });
+                }
+
+                if (hasData) {
+                    // Check if all grades have data
+                    let allGradesHaveData = true;
+                    achievementGrades.forEach(grade => {
+                        if (!schoolData.trimester1.achievement[grade] ||
+                            (schoolData.trimester1.achievement[grade].female.count === 0 &&
+                             schoolData.trimester1.achievement[grade].male.count === 0)) {
+                            allGradesHaveData = false;
+                        }
+                    });
+
+                    if (allGradesHaveData) {
+                        completed++;
+                    } else {
+                        partial++;
+                    }
+                } else {
+                    missing++;
+                }
+            });
+
+            const totalSchoolsEl = document.getElementById('totalSchools');
+            const completedSchoolsEl = document.getElementById('completedSchools');
+            const partialSchoolsEl = document.getElementById('partialSchools');
+            const missingSchoolsEl = document.getElementById('missingSchools');
+
+            if (totalSchoolsEl) totalSchoolsEl.textContent = total;
+            if (completedSchoolsEl) completedSchoolsEl.textContent = completed;
+            if (partialSchoolsEl) partialSchoolsEl.textContent = partial;
+            if (missingSchoolsEl) missingSchoolsEl.textContent = missing;
+        }
+
+        // View School Excel Table (Admin) - FINAL MATCHING USER DIAGRAM
+        function viewSchoolExcelTable(schoolCode) {
+            const school = schoolsData.find(s => s.code === schoolCode);
+            const data = allSchoolsData[schoolCode] || {};
+
+            if (!school) {
+                showAlert('المدرسة غير موجودة', 'danger');
+                return;
+            }
+
+            // Generate HTML table for school (showing trimester 1 by default)
+            let tableHTML = `
+                <h5 class="text-center mb-3">${school.name} - ${school.delegation} (الثلاثي الأول)</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-center">معلومات المدرسة</th>
+                            <th colspan="35" class="text-center grade-header">بيانات التحصيل الدراسي - الثلاثي الأول</th>
+                            <th colspan="35" class="text-center grade-header">بيانات الانقطاع</th>
+                            <th colspan="7" class="text-center">الغيابات والأسباب</th>
+                        </tr>
+                        <tr>
+                            <th>الرقم</th>
+                            <th>رمز المدرسة</th>
+                            <th>*</th>
+                            <th>المعتمدية</th>
+                            <th>اسم المدرسة</th>
+            `;
+
+            // Achievement headers - STRUCTURE: Grade Name | Total | Females | Males
+            achievementGrades.forEach(grade => {
+                tableHTML += `<th colspan="5">${grade}</th>`;
+            });
+
+            // Dropout headers - STRUCTURE: Grade Name | Total | Females | Males
+            dropoutGrades.forEach(grade => {
+                tableHTML += `<th colspan="5">${grade}</th>`;
+            });
+
+            // Other headers
+            tableHTML += `
+                            <th>مباشرة</th>
+                            <th>غير مباشرة</th>
+                            <th>مبررة</th>
+                            <th>غير مبررة</th>
+                            <th>التدريس</th>
+                            <th>الإداري</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3"></th>
+            `;
+
+            // Achievement sub-headers - ROW 1 (Groups)
+            achievementGrades.forEach(() => {
+                tableHTML += '<th>العدد الجملي</th><th colspan="2">اناث</th><th colspan="2">ذكور</th>';
+            });
+
+            // Achievement sub-headers - ROW 2 (Labels)
+            achievementGrades.forEach(() => {
+                tableHTML += '<th>العدد</th><th>العدد</th><th>النسبة</th><th>العدد</th><th>النسبة</th>';
+            });
+
+            // Dropout sub-headers - ROW 1 (Groups)
+            dropoutGrades.forEach(() => {
+                tableHTML += '<th>العدد الجملي</th><th colspan="2">اناث</th><th colspan="2">ذكور</th>';
+            });
+
+            // Dropout sub-headers - ROW 2 (Labels)
+            dropoutGrades.forEach(() => {
+                tableHTML += '<th>العدد</th><th>العدد</th><th>النسبة</th><th>العدد</th><th>النسبة</th>';
+            });
+
+            // Other sub-headers
+            tableHTML += `
+                            <th></th><th></th><th></th><th></th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>${school.code}</td>
+                            <td>*</td>
+                            <td>${school.delegation}</td>
+                            <td>${school.name}</td>
+            `;
+
+            // Achievement data for trimester 1 - ORDER: Total | F-Count | F-% | M-Count | M-%
+            const trimester1Data = data.trimester1 || {};
+            achievementGrades.forEach(grade => {
+                if (trimester1Data.achievement && trimester1Data.achievement[grade]) {
+                    tableHTML += `
+                            <td>${trimester1Data.achievement[grade].total || 0}</td>
+                            <td>${trimester1Data.achievement[grade].female.count || 0}</td>
+                            <td>${trimester1Data.achievement[grade].female.percentage || 0}%</td>
+                            <td>${trimester1Data.achievement[grade].male.count || 0}</td>
+                            <td>${trimester1Data.achievement[grade].male.percentage || 0}%</td>
+                    `;
+                } else {
+                    tableHTML += '<td>0</td><td>0</td><td>0%</td><td>0</td><td>0%</td>';
+                }
+            });
+
+            // Total dropouts
+            tableHTML += `<td>${data.totalDropouts || 0}</td>`;
+
+            // Dropout data - ORDER: Total | F-Count | F-% | M-Count | M-%
+            dropoutGrades.forEach(grade => {
+                if (data.dropoutGrades && data.dropoutGrades[grade]) {
+                    tableHTML += `
+                            <td>${data.dropoutGrades[grade].total || 0}</td>
+                            <td>${data.dropoutGrades[grade].female.count || 0}</td>
+                            <td>${data.dropoutGrades[grade].female.percentage || 0}%</td>
+                            <td>${data.dropoutGrades[grade].male.count || 0}</td>
+                            <td>${data.dropoutGrades[grade].male.percentage || 0}%</td>
+                    `;
+                } else {
+                    tableHTML += '<td>0</td><td>0</td><td>0%</td><td>0</td><td>0%</td>';
+                }
+            });
+
+            // Reasons
+            tableHTML += `
+                            <td>${data.directReasons || ''}</td>
+                            <td>${data.indirectReasons || ''}</td>
+            `;
+
+            // Absences
+            tableHTML += `
+                            <td>${data.justifiedAbsences || 0}</td>
+                            <td>${data.unjustifiedAbsences || 0}</td>
+                            <td>${data.teachingStaffAbsences || 0}</td>
+                            <td>${data.adminStaffAbsences || 0}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            // Display the table
+            const previewDiv = document.getElementById('excelPreview');
+            const contentDiv = document.getElementById('excelPreviewContent');
+            if (previewDiv && contentDiv) {
+                contentDiv.innerHTML = tableHTML;
+                previewDiv.style.display = 'block';
+
+                // Scroll to the preview
+                previewDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Close Excel Preview
+        function closeExcelPreview() {
+            const previewDiv = document.getElementById('excelPreview');
+            if (previewDiv) {
+                previewDiv.style.display = 'none';
+            }
+        }
+
+        // Export to Excel (Admin) - FINAL MATCHING USER DIAGRAM
+        function exportToExcel(trimester) {
+            let excelContent = '<table>';
+
+            // Add header rows
+            const trimesterText = trimester === 1 ? 'الأول' : trimester === 2 ? 'الثاني' : 'الثالث';
+            excelContent += `<tr><td colspan="115" style="text-align:center; font-weight:bold;">متابعة اهم مؤشرات الوضع التربوي لبرنامج المرحلى الابتدائية - الثلاثي ${trimesterText}</td></tr>`;
+            excelContent += '<tr><td>0</td><td>المعتمدية</td><td>*</td><td>المدرسة الإبتدائية</td><td>*</td><td>*</td><td colspan="109">تجويد مكتسبات التلاميذ إناثا و ذكورا بالمرحلة الابتدائية ( عدد التلاميذ المتحصلين على معدل 10 فما فوق في الثلاثي ${trimesterText})</td></tr>';
+
+            // Header format
+            excelContent += '<tr><td>1</td><td>العدد الرتبي</td><td>رمز المدرسة</td><td>*</td><td>المعتمدية</td><td>اسم المدرسة</td>';
+
+            // Achievement headers
+            achievementGrades.forEach(grade => {
+                excelContent += `<td colspan="5">${grade}</td>`;
+            });
+
+            // Dropout section
+            dropoutGrades.forEach(grade => {
+                excelContent += `<td colspan="5">${grade}</td>`;
+            });
+
+            excelContent += '<td>الاسباب المباشرة للانقطاع</td><td>الاسباب الغيرالمباشرة للانقطاع</td><td colspan="3">عدد ايام غيابات التلاميذ</td><td colspan="2">عدد ايام غيابات اطار التدريس</td></tr>';
+
+            // Sub-headers - ROW 1 (Groups): Total | Females (colspan 2) | Males (colspan 2)
+            excelContent += '<tr><td>2</td><td>*</td><td>*</td><td>*</td><td>*</td>';
+
+            achievementGrades.forEach(() => {
+                excelContent += '<td>العدد الجملي</td><td colspan="2">اناث</td><td colspan="2">ذكور</td>';
+            });
+
+            dropoutGrades.forEach(() => {
+                excelContent += '<td>العدد الجملي</td><td colspan="2">اناث</td><td colspan="2">ذكور</td>';
+            });
+
+            excelContent += '<td>*</td><td>*</td><td colspan="3">الغيابات</td><td colspan="2">الاطار</td></tr>';
+
+            // Sub-headers - ROW 2 (Labels): Count | Count | % | Count | %
+            excelContent += '<tr><td>3</td><td>*</td><td>*</td><td>*</td><td>*</td><td>*</td>';
+
+            achievementGrades.forEach(() => {
+                excelContent += '<td>العدد</td><td>العدد</td><td>النسبة</td><td>العدد</td><td>النسبة</td>';
+            });
+
+            dropoutGrades.forEach(() => {
+                excelContent += '<td>العدد</td><td>العدد</td><td>النسبة</td><td>العدد</td><td>النسبة</td>';
+            });
+
+            excelContent += '<td>*</td><td>*</td><td>مبررة</td><td>غير مبررة</td><td>التدريس</td><td>الاداري</td></tr>';
+
+            // Data rows for each school - ORDER: Total | F-Count | F-% | M-Count | M-%
+            let startRow = 4;
+            schoolsData.forEach((school, index) => {
+                const data = allSchoolsData[school.code] || {};
+                const rowNum = startRow + index;
+                const trimesterData = data[`trimester${trimester}`] || {};
+
+                // Column 1: Rank, Column 2: Code, Column 3: Empty, Column 4: Delegation, Column 5: Name
+                excelContent += `<tr><td>${rowNum}</td><td>${school.code}</td><td>*</td><td>${school.delegation}</td><td>${school.name}`;
+
+                // Achievement data with correct format
+                achievementGrades.forEach((grade, gradeIndex) => {
+                    if (trimesterData.achievement && trimesterData.achievement[grade]) {
+                        const total = trimesterData.achievement[grade].total || 0;
+                        const fCount = trimesterData.achievement[grade].female.count || 0;
+                        const mCount = trimesterData.achievement[grade].male.count || 0;
+                        const fPercent = total > 0 ? ((fCount / total) * 100).toFixed(1) : '0';
+                        const mPercent = total > 0 ? ((mCount / total) * 100).toFixed(1) : '0';
+
+                        excelContent += `</td><td>${total}</td>`;
+                        excelContent += `<td>${fCount}</td>`;
+                        excelContent += `<td>${fPercent}%</td>`;
+                        excelContent += `<td>${mCount}</td>`;
+                        excelContent += `<td>${mPercent}%</td>`;
+                    } else {
+                        excelContent += '</td><td>0</td><td>0%</td><td>0</td><td>0%</td>';
+                    }
+                });
+
+                // Total dropouts
+                excelContent += `</td><td>${data.totalDropouts || 0}</td>`;
+
+                // Dropout data with correct format
+                dropoutGrades.forEach((grade, gradeIndex) => {
+                    if (data.dropoutGrades && data.dropoutGrades[grade]) {
+                        const total = data.dropoutGrades[grade].total || 0;
+                        const fCount = data.dropoutGrades[grade].female.count || 0;
+                        const mCount = data.dropoutGrades[grade].male.count || 0;
+                        const fPercent = total > 0 ? ((fCount / total) * 100).toFixed(1) : '0';
+                        const mPercent = total > 0 ? ((mCount / total) * 100).toFixed(1) : '0';
+
+                        excelContent += `</td><td>${total}</td>`;
+                        excelContent += `<td>${fCount}</td>`;
+                        excelContent += `<td>${fPercent}%</td>`;
+                        excelContent += `<td>${mCount}</td>`;
+                        excelContent += `<td>${mPercent}%</td>`;
+                    } else {
+                        excelContent += '</td><td>0</td><td>0%</td><td>0</td><td>0%</td>';
+                    }
+                });
+
+                // Reasons
+                excelContent += `</td><td>${data.directReasons || ''}</td>`;
+                excelContent += `<td>${data.indirectReasons || ''}</td>`;
+
+                // Absences
+                excelContent += `</td><td>${data.justifiedAbsences || 0}</td>`;
+                excelContent += `<td>${data.unjustifiedAbsences || 0}</td>`;
+                excelContent += `<td>${data.teachingStaffAbsences || 0}</td>`;
+                excelContent += `<td>${data.adminStaffAbsences || 0}</td></tr>`;
+            });
+
+            excelContent += '</table>';
+
+            // Create download link
+            const blob = new Blob(['\ufeff' + excelContent], { type: 'application/vnd.ms-excel;charset=utf-8' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `متابعة_مؤشرات_التربوية_سليانة_الثلاثي${trimester}_${new Date().toISOString().split('T')[0]}.xls`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showAlert(`تم تصدير بيانات الثلاثي ${trimesterText} بنجاح`, 'success');
+        }
+
+        // Print Report (Admin)
+        function printReport() {
+            window.print();
+        }
+
+        // Refresh Data (Admin)
+        function refreshData() {
+            loadAllSchoolsData();
+            showAlert('تم تحديث البيانات', 'success');
+        }
+
+        // Logout
+        function logout() {
+            currentSchool = null;
+            schoolData = {};
+
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('schoolDashboard').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'none';
+
+            // Reset form
+            const loginForm = document.getElementById('loginForm');
+            const dataForm = document.getElementById('dataForm');
+            if (loginForm) loginForm.reset();
+            if (dataForm) dataForm.reset();
+
+            showAlert('تم تسجيل الخروج بنجاح', 'success');
+        }
+
+        // Show Alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            if (!alertContainer) return;
+
+            const alert = document.createElement('div');
+            alert.className = `custom-alert alert alert-${type} alert-dismissible fade show`;
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            alertContainer.appendChild(alert);
+
+            // Auto dismiss after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>
